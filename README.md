@@ -13,3 +13,5 @@
 **5** - Executar o script slacko-api.sh
 
 **6** - A aplicação ficará exposta por padrão na porta 8000, para acessa-la basta digitar o seguinte endereço no browser http://localhost:8000
+
+**7** - Swagger está disponivel em http://localhost:8000/docs
