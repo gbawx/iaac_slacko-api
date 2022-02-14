@@ -1,0 +1,39 @@
+- hosts: server
+  gather_facts: True
+
+  tasks:
+
+  - name: Deploy Build
+  connection: ssh
+  gather_facts: false
+  hosts: all
+  vars:
+    repo_folder: /var/www/github-deployment/repos/
+    live_folder: /var/www/my_app/build
+    repo_name: https://github.com/gbawx/iaac_slacko-api
+  # Install mongodb 
+---
+  - name: Add mongo ppa key
+    sudo: yes
+    apt_key: >
+      keyserver=hkp://keyserver.ubuntu.com:80
+      id=7F0CEB10
+      state=present
+  - name: Add mongo sources list
+    sudo: yes
+    lineinfile: >
+      line="deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse"
+      dest=/etc/apt/sources.list.d/mongodb.list
+      state=present
+      create=yes
+  - name: Install mongo
+    sudo: yes
+    apt: name=mongodb-org state=latest update_cache=yes
+
+
+
+    - name: Enable and start nginx service
+      systemd:
+        state: started
+        name: nginx
+        enabled: yes
